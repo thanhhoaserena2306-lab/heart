@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Bling Heart Orbit Mobile</title>
+
+<style>
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    touch-action:none;
+}
+
+/* BODY */
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top,
+    #ff66cc 0%,
+    #7a00ff 25%,
+    #240046 55%,
+    #090014 100%);
+
+    position:relative;
+    overflow:hidden;
+}
+
+/* BACKGROUND BLING */
+
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,255,255,.9) 1px,
+    transparent 2px);
+
+    background-size:55px 55px;
+
+    opacity:.35;
+
+    animation:bgMove 15s linear infinite;
+}
+
+/* BIG GLOW */
+
+body::after{
+    content:"";
+    position:absolute;
+
+    width:120vw;
+    height:120vw;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,0,170,.22),
+    transparent 70%);
+
+    animation:pulse 6s ease-in-out infinite;
+}
+
+/* CONTAINER */
+
+.container{
+    position:relative;
+
+    width:min(90vw,700px);
+    height:min(90vw,700px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* FLOOR LIGHT */
+
+.floor{
+    position:absolute;
+
+    width:75%;
+    height:16%;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,0,140,.5),
+    transparent 70%);
+
+    filter:blur(30px);
+
+    bottom:12%;
+
+    animation:floorPulse 4s ease-in-out infinite;
+}
+
+/* ORBIT RINGS */
+
+.ring{
+    position:absolute;
+
+    border-radius:50%;
+
+    border:4px solid rgba(255,255,255,.45);
+
+    filter:
+    drop-shadow(0 0 10px #ff66cc)
+    drop-shadow(0 0 30px #ff00aa);
+
+    animation:orbit linear infinite;
+}
+
+/* RING 1 */
+
+.r1{
+    width:82%;
+    height:34%;
+
+    animation-duration:10s;
+}
+
+/* RING 2 */
+
+.r2{
+    width:68%;
+    height:27%;
+
+    border:3px solid rgba(255,255,255,.25);
+
+    animation-duration:16s;
+
+    transform:rotate(25deg);
+}
+
+/* TẠO CẢM GIÁC VÒNG CHUI QUA TIM */
+
+.ring::before{
+    content:"";
+    position:absolute;
+
+    inset:-20px;
+
+    border-radius:50%;
+
+    border:inherit;
+
+    clip-path:polygon(
+        0 0,
+        100% 0,
+        100% 45%,
+        0 45%
+    );
+
+    opacity:.15;
+}
+
+/* HEART */
+
+.heart-wrap{
+    position:relative;
+
+    width:min(42vw,320px);
+
+    z-index:5;
+
+    animation:
+    float 5s ease-in-out infinite;
+}
+
+.heart-svg{
+    width:100%;
+
+    animation:
+    beat 2s ease-in-out infinite;
+
+    filter:
+    drop-shadow(0 0 25px #ff4da6)
+    drop-shadow(0 0 80px #ff006e);
+}
+
+/* BLING PARTICLES */
+
+.bling{
+    position:absolute;
+
+    border-radius:50%;
+
+    background:white;
+
+    box-shadow:
+    0 0 10px white,
+    0 0 20px #ff66cc,
+    0 0 40px #ff00aa;
+
+    animation:
+    twinkle 3s ease-in-out infinite;
+}
+
+/* FLOATING HEARTS */
+
+.small-heart{
+    position:absolute;
+
+    color:#ff8fd8;
+
+    text-shadow:
+    0 0 10px #ff66cc,
+    0 0 20px #ff008c;
+
+    animation:fly linear forwards;
+
+    pointer-events:none;
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+    .container{
+        width:100vw;
+        height:100vw;
+    }
+
+    .heart-wrap{
+        width:48vw;
+    }
+
+    .r1{
+        width:90%;
+        height:36%;
+    }
+
+    .r2{
+        width:74%;
+        height:28%;
+    }
+
+    .floor{
+        width:82%;
+        bottom:16%;
+    }
+
+    body::before{
+        background-size:40px 40px;
+    }
+}
+
+/* SMALL PHONE */
+
+@media (max-width:480px){
+
+    .heart-wrap{
+        width:54vw;
+    }
+
+    .r1{
+        border-width:3px;
+    }
+
+    .r2{
+        border-width:2px;
+    }
+}
+
+/* ANIMATIONS */
+
+@keyframes beat{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    25%{
+        transform:scale(1.05);
+    }
+
+    50%{
+        transform:scale(1.12);
+    }
+
+    75%{
+        transform:scale(1.04);
+    }
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-20px);
+    }
+}
+
+@keyframes orbit{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        transform:scale(1);
+        opacity:.5;
+    }
+
+    50%{
+        transform:scale(1.15);
+        opacity:1;
+    }
+}
+
+@keyframes bgMove{
+
+    from{
+        transform:
+        translateY(0)
+        rotate(0deg);
+    }
+
+    to{
+        transform:
+        translateY(-120px)
+        rotate(2deg);
+    }
+}
+
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:.2;
+        transform:scale(.5);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(2);
+    }
+}
+
+@keyframes fly{
+
+    0%{
+        transform:
+        translateY(0)
+        scale(.5);
+
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translateY(-120vh)
+        translateX(40px)
+        scale(1.5);
+
+        opacity:0;
+    }
+}
+
+@keyframes floorPulse{
+
+    0%,100%{
+        transform:scale(1);
+        opacity:.5;
+    }
+
+    50%{
+        transform:scale(1.2);
+        opacity:1;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="floor"></div>
+
+    <!-- ORBIT -->
+
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+
+    <!-- HEART -->
+
+    <div class="heart-wrap">
+
+        <svg class="heart-svg"
+        viewBox="0 0 512 512">
+
+        <defs>
+
+        <linearGradient
+        id="heartGradient"
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="100%">
+
+            <stop offset="0%"
+            stop-color="#ffb3e6"/>
+
+            <stop offset="50%"
+            stop-color="#ff006e"/>
+
+            <stop offset="100%"
+            stop-color="#ff4db8"/>
+
+        </linearGradient>
+
+        <filter id="glow">
+
+            <feGaussianBlur
+            stdDeviation="8"
+            result="blur"/>
+
+            <feMerge>
+
+                <feMergeNode in="blur"/>
+
+                <feMergeNode
+                in="SourceGraphic"/>
+
+            </feMerge>
+
+        </filter>
+
+        </defs>
+
+        <path
+        d="
+        M256 470
+        L220 438
+        C100 330 40 250 40 160
+        C40 90 90 40 160 40
+        C210 40 250 70 256 120
+        C262 70 302 40 352 40
+        C422 40 472 90 472 160
+        C472 250 412 330 292 438
+        L256 470
+        Z"
+
+        fill="url(#heartGradient)"
+        filter="url(#glow)"
+        />
+
+        </svg>
+
+    </div>
+
+</div>
+
+<script>
+
+/* MOBILE SAFE PARTICLE COUNT */
+
+const particleCount =
+window.innerWidth < 768 ? 120 : 220;
+
+/* BLING PARTICLES */
+
+for(let i=0;i<particleCount;i++){
+
+    let star=document.createElement("div");
+
+    star.className="bling";
+
+    let size=Math.random()*4+2;
+
+    star.style.width=size+"px";
+    star.style.height=size+"px";
+
+    star.style.left=
+    Math.random()*window.innerWidth+"px";
+
+    star.style.top=
+    Math.random()*window.innerHeight+"px";
+
+    star.style.animationDelay=
+    Math.random()*4+"s";
+
+    document.body.appendChild(star);
+}
+
+/* FLOATING HEARTS */
+
+function createHeart(){
+
+    let h=document.createElement("div");
+
+    h.className="small-heart";
+
+    h.innerHTML="❤";
+
+    h.style.left=
+    Math.random()*window.innerWidth+"px";
+
+    h.style.bottom="-40px";
+
+    h.style.fontSize=
+    Math.random()*24+12+"px";
+
+    h.style.animationDuration=
+    Math.random()*5+5+"s";
+
+    document.body.appendChild(h);
+
+    setTimeout(()=>{
+        h.remove();
+    },10000);
+}
+
+setInterval(createHeart,450);
+
+</script>
+
+</body>
+</html>
